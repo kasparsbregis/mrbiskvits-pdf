@@ -20,6 +20,7 @@ export default function Home() {
     { name: "MEDUS KŪKA", price: 17.0 },
     { name: "ŠOKOLĀDES RUMA KŪKA", price: 25.0 },
     { name: "SVAIGĒDĀJU KŪKA", price: 33.0 },
+    { name: "TEST KŪKA", price: 33.0 },
   ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
