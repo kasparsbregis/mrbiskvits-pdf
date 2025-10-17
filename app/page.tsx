@@ -14,7 +14,7 @@ export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const options = [
-    { name: "AVEŅU TIRAMISUS", price: 20.0 },
+    { name: "AVEŅU TIRAMISU", price: 20.0 },
     { name: "JUBILEJAS KŪKA", price: 30.0 },
     { name: "MANGO KŪKA", price: 23.0 },
     { name: "MEDUS KŪKA", price: 17.0 },
@@ -122,12 +122,9 @@ export default function Home() {
           className="rounded-lg border border-gray-200 bg-white shadow-lg"
           style={{ padding: "40px" }}
         >
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-4 space-y-8"
-          >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {/* Recipient Name */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               <label
                 htmlFor="recipientName"
                 className="block text-sm font-medium text-gray-700"
@@ -147,7 +144,7 @@ export default function Home() {
             </div>
 
             {/* Registration Number */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               <label
                 htmlFor="registrationNumber"
                 className="block text-sm font-medium text-gray-700"
@@ -167,15 +164,15 @@ export default function Home() {
             </div>
 
             {/* Services Selection */}
-            <div className="space-y-4">
+            <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 Izvēlieties pakalpojumus
               </label>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
                 {options.map((option, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-2 space-x-3 rounded-md border border-gray-200 transition-colors hover:bg-gray-50"
+                    className="flex items-center gap-2 rounded-md border border-gray-200 transition-colors hover:bg-gray-50"
                     style={{ padding: "16px" }}
                   >
                     <Checkbox
@@ -205,25 +202,22 @@ export default function Home() {
                 <label className="block text-sm font-medium text-gray-700">
                   Izvēlētie pakalpojumi
                 </label>
-                <div className="flex flex-col gap-1 space-y-3">
+                <div className="flex flex-col gap-1">
                   {formData.selectedOptions.map((selectedOption, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-200 p-4"
+                      className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-200 px-3 py-2"
                     >
                       <div className="flex-1">
                         <h4 className="font-medium text-gray-900">
                           {selectedOption.name}
                         </h4>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-xs text-gray-600">
                           €{selectedOption.price.toFixed(2)} par vienību
                         </p>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <label className="text-sm text-gray-700">
-                          Daudzums:
-                        </label>
-                        <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-1">
+                        <div className="flex items-center">
                           <Button
                             type="button"
                             variant="outline"
@@ -239,7 +233,7 @@ export default function Home() {
                           >
                             -
                           </Button>
-                          <span className="w-12 text-center font-medium">
+                          <span className="w-8 text-center font-medium">
                             {selectedOption.quantity}
                           </span>
                           <Button
@@ -286,9 +280,9 @@ export default function Home() {
 
             {/* Total Price Display */}
             {formData.selectedOptions.length > 0 && (
-              <div className="rounded-lg bg-gray-50 p-4">
+              <div className="rounded-lg bg-green-300 px-4 py-6">
                 <h3 className="mb-3 text-lg font-semibold text-gray-800">
-                  Kopējā summa
+                  KOPĒJĀ SUMMA
                 </h3>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
@@ -312,7 +306,7 @@ export default function Home() {
             <Button
               type="submit"
               disabled={isGenerating}
-              className="w-full"
+              className="w-full hover:cursor-pointer"
               size="lg"
               style={{ margin: "10px 0" }}
             >
