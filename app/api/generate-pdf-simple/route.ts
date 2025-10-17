@@ -569,28 +569,29 @@ export async function POST(request: NextRequest) {
     // Generate PDF using Vercel-compatible Puppeteer
     // Check if running on Vercel/serverless environment
     const isServerless = !!(
-      process.env.VERCEL ||
-      process.env.AWS_LAMBDA_FUNCTION_NAME
+      process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME
     );
 
     let browser;
 
     if (isServerless) {
       // Production (Vercel/Serverless) - use @sparticuz/chromium
-      console.log("Running in serverless environment, using @sparticuz/chromium");
-      
+      console.log(
+        "Running in serverless environment, using @sparticuz/chromium"
+      );
+
       const executablePath = await chromium.executablePath();
       console.log("Chromium executable path:", executablePath);
 
       browser = await puppeteerCore.launch({
         args: chromium.args,
         executablePath: executablePath,
-        headless: chromium.headless,
+        headless: true,
       });
     } else {
       // Development - use regular puppeteer
       console.log("Running in development environment, using puppeteer");
-      
+
       browser = await puppeteer.launch({
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
         headless: true,
