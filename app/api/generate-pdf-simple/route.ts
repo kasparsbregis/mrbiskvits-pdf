@@ -567,63 +567,31 @@ export async function POST(request: NextRequest) {
     `;
 
     // Generate PDF using Vercel-compatible Puppeteer
-    const isProduction =
-      process.env.NEXT_PUBLIC_VERCEL_ENVIRONMENT === "production";
+    // Check if running on Vercel/serverless environment
+    const isServerless = !!(
+      process.env.VERCEL ||
+      process.env.AWS_LAMBDA_FUNCTION_NAME
+    );
 
     let browser;
 
-    if (isProduction) {
-      // Production (Vercel) - try multiple approaches
-      try {
-        // First try: with chromium executablePath
-        const executablePath = await chromium.executablePath();
-        console.log("Trying Chromium executable path:", executablePath);
+    if (isServerless) {
+      // Production (Vercel/Serverless) - use @sparticuz/chromium
+      console.log("Running in serverless environment, using @sparticuz/chromium");
+      
+      const executablePath = await chromium.executablePath();
+      console.log("Chromium executable path:", executablePath);
 
-        browser = await puppeteerCore.launch({
-          args: chromium.args,
-          executablePath: executablePath,
-          headless: true,
-        });
-      } catch (error) {
-        console.error(
-          "Chromium executablePath failed, trying system Chrome:",
-          error
-        );
-
-        try {
-          // Second try: system Chrome without executablePath
-          browser = await puppeteerCore.launch({
-            args: [
-              "--no-sandbox",
-              "--disable-setuid-sandbox",
-              "--disable-dev-shm-usage",
-              "--disable-gpu",
-              "--single-process",
-              "--no-zygote",
-            ],
-            headless: true,
-          });
-        } catch (error2) {
-          console.error(
-            "System Chrome failed, trying regular puppeteer:",
-            error2
-          );
-
-          // Third try: regular puppeteer as last resort
-          browser = await puppeteer.launch({
-            args: [
-              "--no-sandbox",
-              "--disable-setuid-sandbox",
-              "--disable-dev-shm-usage",
-              "--disable-gpu",
-              "--single-process",
-            ],
-            headless: true,
-          });
-        }
-      }
+      browser = await puppeteerCore.launch({
+        args: chromium.args,
+        defaultViewport: chromium.defaultViewport,
+        executablePath: executablePath,
+        headless: chromium.headless,
+      });
     } else {
       // Development - use regular puppeteer
+      console.log("Running in development environment, using puppeteer");
+      
       browser = await puppeteer.launch({
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
         headless: true,
