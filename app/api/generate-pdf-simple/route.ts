@@ -580,13 +580,29 @@ export async function POST(request: NextRequest) {
         "Running in serverless environment, using @sparticuz/chromium"
       );
 
+      // Configure font before getting executable path
+      await chromium.font(
+        "https://raw.githack.com/googlei18n/noto-emoji/master/fonts/NotoColorEmoji.ttf"
+      );
+
       const executablePath = await chromium.executablePath();
       console.log("Chromium executable path:", executablePath);
 
       browser = await puppeteerCore.launch({
-        args: chromium.args,
+        args: [
+          ...chromium.args,
+          "--disable-gpu",
+          "--disable-dev-shm-usage",
+          "--disable-setuid-sandbox",
+          "--no-first-run",
+          "--no-sandbox",
+          "--no-zygote",
+          "--single-process",
+        ],
+        defaultViewport: chromium.defaultViewport,
         executablePath: executablePath,
-        headless: true,
+        headless: chromium.headless,
+        ignoreHTTPSErrors: true,
       });
     } else {
       // Development - use regular puppeteer
