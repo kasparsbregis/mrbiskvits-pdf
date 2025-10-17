@@ -14,7 +14,7 @@ export default function Home() {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const options = [
-    { name: "AVEŅU TIRAMISU", price: 20.0 },
+    { name: "AVEŅU TIRAMISUS", price: 20.0 },
     { name: "JUBILEJAS KŪKA", price: 30.0 },
     { name: "MANGO KŪKA", price: 23.0 },
     { name: "MEDUS KŪKA", price: 17.0 },
@@ -107,8 +107,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl flex flex-col gap-4">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+      <div className="flex w-full max-w-4xl flex-col gap-4">
         {/* Header */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-gray-900">
@@ -118,12 +118,12 @@ export default function Home() {
 
         {/* Form Card */}
         <div
-          className="bg-white rounded-lg shadow-lg border border-gray-200"
+          className="rounded-lg border border-gray-200 bg-white shadow-lg"
           style={{ padding: "40px" }}
         >
           <form
             onSubmit={handleSubmit}
-            className="space-y-8 flex flex-col gap-4"
+            className="flex flex-col gap-4 space-y-8"
           >
             {/* Recipient Name */}
             <div className="space-y-3">
@@ -170,11 +170,11 @@ export default function Home() {
               <label className="block text-sm font-medium text-gray-700">
                 Izvēlieties pakalpojumus
               </label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {options.map((option, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-3 gap-2 rounded-md border border-gray-200 hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-2 space-x-3 rounded-md border border-gray-200 transition-colors hover:bg-gray-50"
                     style={{ padding: "16px" }}
                   >
                     <Checkbox
@@ -186,11 +186,11 @@ export default function Home() {
                     />
                     <label
                       htmlFor={`option-${index}`}
-                      className="text-gray-700 cursor-pointer flex-1"
+                      className="flex-1 cursor-pointer text-gray-700"
                     >
                       {option.name}
                     </label>
-                    <span className="text-gray-600 font-medium">
+                    <span className="font-medium text-gray-600">
                       €{option.price.toFixed(2)}
                     </span>
                   </div>
@@ -204,11 +204,11 @@ export default function Home() {
                 <label className="block text-sm font-medium text-gray-700">
                   Izvēlētie pakalpojumi
                 </label>
-                <div className="space-y-3 gap-1 flex flex-col">
+                <div className="flex flex-col gap-1 space-y-3">
                   {formData.selectedOptions.map((selectedOption, index) => (
                     <div
                       key={index}
-                      className="flex items-center justify-between p-4 bg-gray-200 rounded-lg border border-gray-200"
+                      className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-200 p-4"
                     >
                       <div className="flex-1">
                         <h4 className="font-medium text-gray-900">
@@ -234,7 +234,7 @@ export default function Home() {
                               )
                             }
                             disabled={selectedOption.quantity <= 1}
-                            className="w-8 h-8 p-0"
+                            className="h-8 w-8 p-0"
                           >
                             -
                           </Button>
@@ -251,12 +251,12 @@ export default function Home() {
                                 selectedOption.quantity + 1
                               )
                             }
-                            className="w-8 h-8 p-0"
+                            className="h-8 w-8 p-0"
                           >
                             +
                           </Button>
                         </div>
-                        <div className="text-right min-w-[80px]">
+                        <div className="min-w-[80px] text-right">
                           <span className="font-semibold text-gray-900">
                             €
                             {(
@@ -271,7 +271,7 @@ export default function Home() {
                           onClick={() =>
                             handleRemoveService(selectedOption.name)
                           }
-                          className="w-8 h-8 p-0 text-red-600 hover:text-white hover:bg-red-500 border-red-300 hover:border-red-400 hover:cursor-pointer"
+                          className="h-8 w-8 border-red-300 p-0 text-red-600 hover:cursor-pointer hover:border-red-400 hover:bg-red-500 hover:text-white"
                           style={{ marginLeft: "12px" }}
                         >
                           ×
@@ -285,8 +285,8 @@ export default function Home() {
 
             {/* Total Price Display */}
             {formData.selectedOptions.length > 0 && (
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">
+              <div className="rounded-lg bg-gray-50 p-4">
+                <h3 className="mb-3 text-lg font-semibold text-gray-800">
                   Kopējā summa
                 </h3>
                 <div className="space-y-2">
