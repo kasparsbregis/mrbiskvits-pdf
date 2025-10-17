@@ -584,7 +584,6 @@ export async function POST(request: NextRequest) {
 
       browser = await puppeteerCore.launch({
         args: chromium.args,
-        defaultViewport: chromium.defaultViewport,
         executablePath: executablePath,
         headless: chromium.headless,
       });
